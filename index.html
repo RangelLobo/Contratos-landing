@@ -3,32 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gerador de Contratos com IA</title>
+  <title>Contratos com IA</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f2f2f2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .container {
-      background: white;
+      font-family: Arial, sans-serif;
       padding: 2rem;
       max-width: 500px;
-      width: 90%;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      border-radius: 10px;
+      margin: auto;
+      background: #f9f9f9;
     }
     h1 {
+      font-size: 24px;
       text-align: center;
-      margin-bottom: 1rem;
     }
     input, textarea, button {
       width: 100%;
@@ -39,54 +25,39 @@
       border: 1px solid #ccc;
     }
     button {
-      background: #000;
-      color: #fff;
-      border: none;
+      background-color: black;
+      color: white;
       cursor: pointer;
-    }
-    button:hover {
-      background: #222;
     }
     #resposta {
       margin-top: 1rem;
       text-align: center;
-      font-weight: bold;
-      color: green;
+      color: red;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Contratos com IA</h1>
-    <p>Preencha os campos abaixo para gerar automaticamente um contrato usando inteligência artificial.</p>
-    
-    <input type="text" id="nome" placeholder="Seu nome" required />
-    <input type="email" id="email" placeholder="Seu email" required />
-    <input type="text" id="tipo" placeholder="Tipo de contrato" required />
-    <textarea id="mensagem" placeholder="Informações adicionais..." rows="4" required></textarea>
-    <button onclick="enviar()">Gerar Contrato</button>
-    
-    <div id="resposta"></div>
-  </div>
+  <h1>Automatize Contratos com IA</h1>
+  <p>Preencha o formulário e receba um contrato automatizado gerado por inteligência artificial.</p>
+  <input type="text" id="nome" placeholder="Seu nome" />
+  <input type="email" id="email" placeholder="Seu email" />
+  <input type="text" id="tipo" placeholder="Tipo de contrato" />
+  <textarea id="mensagem" placeholder="Informações adicionais"></textarea>
+  <button onclick="enviar()">Gerar Contrato</button>
+  <div id="resposta"></div>
 
   <script>
     async function enviar() {
-      const nome = document.getElementById("nome").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const tipo = document.getElementById("tipo").value.trim();
-      const mensagem = document.getElementById("mensagem").value.trim();
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const tipo = document.getElementById("tipo").value;
+      const mensagem = document.getElementById("mensagem").value;
       const resposta = document.getElementById("resposta");
-
-      if (!nome || !email || !tipo) {
-        resposta.style.color = "red";
-        resposta.innerText = "Preencha todos os campos obrigatórios.";
-        return;
-      }
 
       const dados = { nome, email, tipo, mensagem };
 
       try {
-        const r = await fetch("https://script.google.com/macros/s/AKfycbxFNJaHSJdg3XM_KTZWEyG15VkrWJlQ0lTx2RPsxmT_DHmd9vHd4r1bImQ4TUSDerlw/exec", {
+        const r = await fetch("https://script.google.com/macros/s/AKfycbw-xtHOjE53vIAVkzKS_WG1zI2QW4cL3hYuv37kwj3hQP89phppDOuTzf7hC7uoNu0E/exec", {
           method: "POST",
           body: JSON.stringify(dados),
           headers: {
@@ -95,16 +66,9 @@
         });
 
         const texto = await r.text();
-        if (texto.includes("Sucesso")) {
-          resposta.style.color = "green";
-          resposta.innerText = "Contrato enviado com sucesso!";
-        } else {
-          resposta.style.color = "red";
-          resposta.innerText = "Erro: " + texto;
-        }
+        resposta.innerText = texto.includes("Sucesso") ? "Contrato enviado com sucesso!" : texto;
       } catch (e) {
-        resposta.style.color = "red";
-        resposta.innerText = "Erro ao enviar. Verifique a conexão.";
+        resposta.innerText = "Erro ao enviar. Verifique sua conexão.";
       }
     }
   </script>

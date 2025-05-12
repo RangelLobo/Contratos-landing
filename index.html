@@ -58,9 +58,7 @@
       const dados = { nome, email, tipo, mensagem };
 
       try {
-        const r = await fetch("https://script.google.com/macros/s/AKfycbwJNygHdHG70Poty3CMpa0kB4BFw8rYghfq0yQNMDXUAqV9CfM8H1fx4SzsBN-t1Of8/exec
-
-", {
+        const r = await fetch("https://script.google.com/macros/s/AKfycbzxi-pK3kDRgpmjihuUQFcIQVxDUFPvsqjkgHpKOI8DLgAFe_d0gjiAiLuCfKUlqZVj/exec", {
           method: "POST",
           body: JSON.stringify(dados),
           headers: {

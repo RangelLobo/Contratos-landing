@@ -1,76 +1,84 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contratos com IA</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      max-width: 500px;
-      margin: auto;
-      background: #f9f9f9;
-    }
-    h1 {
-      font-size: 24px;
-      text-align: center;
-    }
-    input, textarea, button {
-      width: 100%;
-      margin-top: 1rem;
-      padding: 0.75rem;
-      font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: black;
-      color: white;
-      cursor: pointer;
-    }
-    #resposta {
-      margin-top: 1rem;
-      text-align: center;
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <h1>Automatize Contratos com IA</h1>
-  <p>Preencha o formulário e receba um contrato automatizado gerado por inteligência artificial.</p>
-  <input type="text" id="nome" placeholder="Seu nome" />
-  <input type="email" id="email" placeholder="Seu email" />
-  <input type="text" id="tipo" placeholder="Tipo de contrato" />
-  <textarea id="mensagem" placeholder="Informações adicionais"></textarea>
-  <button onclick="enviar()">Gerar Contrato</button>
-  <div id="resposta"></div>
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
-  <script>
-    async function enviar() {
-      const nome = document.getElementById("nome").value;
-      const email = document.getElementById("email").value;
-      const tipo = document.getElementById("tipo").value;
-      const mensagem = document.getElementById("mensagem").value;
-      const resposta = document.getElementById("resposta");
+export default function LandingPage() {
+  return (
+    <main className="min-h-screen bg-white text-gray-900 p-6 md:p-16">
+      <section className="max-w-5xl mx-auto text-center">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6">Automatize Contratos e E-mails com IA</h1>
+        <p className="text-lg md:text-xl mb-10">Gere documentos e mensagens profissionais com apenas alguns cliques. Rápido, inteligente e 100% personalizável.</p>
+        <Link href="/dashboard">
+          <Button className="text-lg px-6 py-4 rounded-2xl shadow-xl">Testar Agora</Button>
+        </Link>
+      </section>
 
-      const dados = { nome, email, tipo, mensagem };
+      <section className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="bg-gray-100 p-6 rounded-2xl shadow-md">
+          <h2 className="text-2xl font-semibold mb-4">Geração de Contratos</h2>
+          <p className="text-gray-700">Insira o nome do cliente, o serviço e o valor, e a IA cria o contrato completo em segundos.</p>
+        </div>
 
-      try {
-        const r = await fetch("https://script.google.com/macros/s/AKfycbw-xtHOjE53vIAVkzKS_WG1zI2QW4cL3hYuv37kwj3hQP89phppDOuTzf7hC7uoNu0E/exec", {
-          method: "POST",
-          body: JSON.stringify(dados),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        });
+        <div className="bg-gray-100 p-6 rounded-2xl shadow-md">
+          <h2 className="text-2xl font-semibold mb-4">E-mails Profissionais</h2>
+          <p className="text-gray-700">Lembretes e comunicações personalizadas para seus clientes, com tom profissional e automático.</p>
+        </div>
+      </section>
 
-        const texto = await r.text();
-        resposta.innerText = texto.includes("Sucesso") ? "Contrato enviado com sucesso!" : texto;
-      } catch (e) {
-        resposta.innerText = "Erro ao enviar. Verifique sua conexão.";
-      }
-    }
-  </script>
-</body>
-</html>
+      <section className="mt-20">
+        <h2 className="text-3xl font-bold text-center mb-8">Depoimentos</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-gray-50 p-6 rounded-xl shadow">
+            <p className="italic">“Economizei horas do meu dia com essa ferramenta. Os contratos saem prontos e perfeitos.”</p>
+            <p className="mt-4 font-semibold">— Carla S., Consultora Jurídica</p>
+          </div>
+          <div className="bg-gray-50 p-6 rounded-xl shadow">
+            <p className="italic">“A IA escreve melhor do que eu! Os e-mails são claros, objetivos e funcionam.”</p>
+            <p className="mt-4 font-semibold">— Diego R., Contador</p>
+          </div>
+          <div className="bg-gray-50 p-6 rounded-xl shadow">
+            <p className="italic">“Um dos melhores investimentos que fiz no meu escritório.”</p>
+            <p className="mt-4 font-semibold">— Fernanda L., Administradora</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-20">
+        <h2 className="text-3xl font-bold text-center mb-8">Planos</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div className="border rounded-2xl p-6 shadow-lg">
+            <h3 className="text-xl font-semibold">Gratuito</h3>
+            <p className="my-4 text-gray-500">Teste com até 5 gerações</p>
+            <p className="text-2xl font-bold">R$ 0</p>
+          </div>
+          <div className="border rounded-2xl p-6 shadow-lg bg-blue-50">
+            <h3 className="text-xl font-semibold">Profissional</h3>
+            <p className="my-4 text-gray-500">Gerações ilimitadas + prioridade</p>
+            <p className="text-2xl font-bold">R$ 49/mês</p>
+          </div>
+          <div className="border rounded-2xl p-6 shadow-lg">
+            <h3 className="text-xl font-semibold">Empresarial</h3>
+            <p className="my-4 text-gray-500">Multiusuário + integrações</p>
+            <p className="text-2xl font-bold">R$ 149/mês</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-20 max-w-3xl mx-auto text-center">
+        <h2 className="text-3xl font-bold mb-6">Fale Conosco</h2>
+        <form className="space-y-4">
+          <Input placeholder="Seu nome" />
+          <Input placeholder="Seu e-mail" type="email" />
+          <Textarea placeholder="Sua mensagem" rows={4} />
+          <Button className="w-full md:w-auto">Enviar Mensagem</Button>
+        </form>
+      </section>
+
+      <section className="mt-20 text-center text-gray-500">
+        <p>Powered by GPT-4 | Desenvolvido por [Seu Nome ou Marca]</p>
+      </section>
+    </main>
+  );
+}
+            

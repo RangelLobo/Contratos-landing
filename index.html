@@ -1,24 +1,77 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Contábil IA</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contratos com IA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+      background: #f9f9f9;
+    }
+    h1 {
+      font-size: 24px;
+      text-align: center;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: black;
+      color: white;
+      cursor: pointer;
+    }
+    #resposta {
+      margin-top: 1rem;
+      text-align: center;
+      color: green;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 p-6">
-  <div class="max-w-6xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6 text-center">Assistente Contábil com IA</h1><!-- Cards Resumo -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-  <div class="bg-white rounded-2xl shadow p-4">
-    <h2 class="text-xl font-semibold">Contratos enviados</h2>
-    <p id="total-contratos" class="text-2xl text-blue-600">0</p>
-  </div>
-  <div class="bg-white rounded-2xl shadow p-4">
-    <h2 class="text-xl font-semibold">Clientes registrados</h2>
-    <p id="total-clientes" class="text-2xl text-green-600">0</p>
-  </div>
-  <div class="bg-white rounded-2xl shadow p-4">
-    <h2 class="text-xl font-semibold">Emails enviados</h2>
-    <p id="total-emails" class
+<body>
+  <h1>Automatize Contratos com IA</h1>
+  <p>Preencha o formulário e receba um contrato automatizado gerado por inteligência artificial.</p>
+  <input type="text" id="nome" placeholder="Seu nome" />
+  <input type="email" id="email" placeholder="Seu email" />
+  <input type="text" id="tipo" placeholder="Tipo de contrato" />
+  <textarea id="mensagem" placeholder="Informações adicionais"></textarea>
+  <button onclick="enviar()">Gerar Contrato</button>
+  <div id="resposta"></div>
 
-        
+  <script>
+    async function enviar() {
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const tipo = document.getElementById("tipo").value;
+      const mensagem = document.getElementById("mensagem").value;
+      const resposta = document.getElementById("resposta");
+
+      const dados = { nome, email, tipo, mensagem };
+
+      try {
+        const r = await fetch("https://script.google.com/macros/s/AKfycbzNaKv8n3Hta3VZVyKpGa-J_2LYM7u8Vjq9sOxVNoaRV_pzxY98wYKtMjuKDNrCsVc-bw/exec", {
+          method: "POST",
+          body: JSON.stringify(dados),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+
+        const texto = await r.text();
+        resposta.innerText = texto.includes("Sucesso") ? "Contrato enviado com sucesso!" : texto;
+      } catch (e) {
+        resposta.innerText = "Erro ao enviar. Verifique a conexão.";
+        resposta.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -32,7 +32,7 @@
     #resposta {
       margin-top: 1rem;
       text-align: center;
-      color: red;
+      color: green;
     }
   </style>
 </head>
@@ -61,13 +61,13 @@
       formData.append("mensagem", mensagem);
 
       try {
-        const r = await fetch("https://script.google.com/macros/s/AKfycbw-xtHOjE53vIAVkzKS_WG1zI2QW4cL3hYuv37kwj3hQP89phppDOuTzf7hC7uoNu0E/exec", {
+        const r = await fetch("https://script.google.com/macros/s/AKfycbyIVDzxtXOjBFbvnH4rZLCoZ9gxzX4MuCx9ZAHB09DEOye3b9tbD6Misz9PBJSXxwFcXg/exec", {
           method: "POST",
           body: formData
         });
 
         const texto = await r.text();
-        resposta.innerText = texto.includes("Sucesso") ? "Contrato enviado com sucesso!" : texto;
+        resposta.innerText = texto;
       } catch (e) {
         resposta.innerText = "Erro ao enviar. Verifique a conexão.";
       }

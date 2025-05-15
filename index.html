@@ -32,7 +32,7 @@
     #resposta {
       margin-top: 1rem;
       text-align: center;
-      color: green;
+      color: red;
     }
   </style>
 </head>
@@ -54,22 +54,22 @@
       const mensagem = document.getElementById("mensagem").value;
       const resposta = document.getElementById("resposta");
 
-      const dados = { nome, email, tipo, mensagem };
+      const formData = new FormData();
+      formData.append("nome", nome);
+      formData.append("email", email);
+      formData.append("tipo", tipo);
+      formData.append("mensagem", mensagem);
 
       try {
-        const r = await fetch("https://script.google.com/macros/s/AKfycbzNaKv8n3Hta3VZVyKpGa-J_2LYM7u8Vjq9sOxVNoaRV_pzxY98wYKtMjuKDNrCsVc-bw/exec", {
+        const r = await fetch("https://script.google.com/macros/s/AKfycbw-xtHOjE53vIAVkzKS_WG1zI2QW4cL3hYuv37kwj3hQP89phppDOuTzf7hC7uoNu0E/exec", {
           method: "POST",
-          body: JSON.stringify(dados),
-          headers: {
-            "Content-Type": "application/json"
-          }
+          body: formData
         });
 
         const texto = await r.text();
         resposta.innerText = texto.includes("Sucesso") ? "Contrato enviado com sucesso!" : texto;
       } catch (e) {
         resposta.innerText = "Erro ao enviar. Verifique a conexão.";
-        resposta.style.color = "red";
       }
     }
   </script>

@@ -61,7 +61,7 @@
       formData.append("mensagem", mensagem);
 
       try {
-        const r = await fetch("https://script.google.com/macros/s/AKfycbyIVDzxtXOjBFbvnH4rZLCoZ9gxzX4MuCx9ZAHB09DEOye3b9tbD6Misz9PBJSXxwFcXg/exec", {
+        const r = await fetch("https://script.google.com/macros/s/AKfycbyq6m3UL-fBXj1ENpFE3TPn5w7hDQmsq0dVIrA2RwTPJCD9A_6GCU1p72qNzO0y6j-lRQ/exec", {
           method: "POST",
           body: formData
         });
@@ -69,6 +69,7 @@
         const texto = await r.text();
         resposta.innerText = texto;
       } catch (e) {
+        resposta.style.color = "red";
         resposta.innerText = "Erro ao enviar. Verifique a conexão.";
       }
     }
